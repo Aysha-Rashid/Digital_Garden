@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,41 +11,63 @@
             background-color: #cce7c9;
         }
         canvas {
-            border: 2px solid black;
+            border: 2px solid rgb(39, 198, 7);
         }
     </style>
 </head>
 <body>
     <h1>My Interactive Farm</h1>
     <script>
-        let fieldImg, flowerImg, plantSpots = [];
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        document.body.appendChild(canvas);
 
-        function preload() {
-            fieldImg = loadImage('https://cdn.pixabay.com/photo/2015/10/31/11/59/field-1017605_1280.jpg'); // Example field image
-            flowerImg = loadImage('https://cdn.pixabay.com/photo/2016/08/01/20/13/flowers-1566795_1280.jpg'); // Example flower image
-        }
+        const tileSize = 50; // Tile size for the field
+        const rows = 10; // Number of rows for the field
+        const cols = 10; // Number of columns for the field
 
-        function setup() {
-            let canvas = createCanvas(800, 500);
-            canvas.parent(document.body);
-        }
+        const borderPadding = 1; // Space between border and field
+        const borderTileSize = tileSize / 2; // Size of the border (smaller than field)
 
-        function draw() {
-            background(255);
-            if (fieldImg) image(fieldImg, 0, 0, width, height);
-            for (let spot of plantSpots) {
-                image(flowerImg, spot.x, spot.y, 50, 50);
+        // Canvas size adjusted for border and field
+        canvas.width = (cols + 2 * borderPadding) * tileSize; 
+        canvas.height = (rows + 2 * borderPadding) * tileSize;
+
+        const grassImg = new Image();
+        const borderImg = new Image();
+
+        grassImg.src = "grass_texture.png"; // Replace with actual path
+        borderImg.src = "border_texture.png"; // Replace with actual path
+
+        grassImg.onload = () => {
+            borderImg.onload = () => {
+                drawField();
+            };
+        };
+
+        function drawField() {
+            // Draw border first (on the outer layer)
+            for (let y = 0; y < rows + 2 * borderPadding; y++) {
+                for (let x = 0; x < cols + 2 * borderPadding; x++) {
+                    if (y === 0 || y === rows + 2 * borderPadding - 1 || x === 0 || x === cols + 2 * borderPadding - 1) {
+                        // Draw border image
+                        ctx.drawImage(borderImg, x * tileSize, y * tileSize, borderTileSize, borderTileSize);
+                    }
+                }
             }
-        }
 
-        function mousePressed() {
-            if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-                plantSpots.push({x: mouseX - 25, y: mouseY - 25});
+            // Draw the field (inside the border)
+            for (let y = borderPadding; y < rows + borderPadding; y++) {
+                for (let x = borderPadding; x < cols + borderPadding; x++) {
+                    // Draw grass image
+                    ctx.drawImage(grassImg, x * tileSize, y * tileSize, tileSize, tileSize);
+                }
             }
         }
     </script>
 </body>
 </html>
+
 
 <!-- <!DOCTYPE html>
 <html lang="en">
