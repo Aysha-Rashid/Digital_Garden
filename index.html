@@ -1,115 +1,74 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <script src="style.css"></script>
+  </body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Game</title>
+    <title>Farm Game - Natural Edition</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js"></script>
-    <style>
-        body {
-            text-align: center;
-            background-color: #cce7c9;
-        }
-        canvas {
-            border: 2px solid rgb(39, 198, 7);
-        }
-    </style>
 </head>
 <body>
-    <h1>My Interactive Farm</h1>
-    <script>
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        document.body.appendChild(canvas);
+    <div class="container">
+        <canvas class="field-canvas"></canvas>
 
-        const tileSize = 50; // Tile size for the field
-        const rows = 10; // Number of rows for the field
-        const cols = 10; // Number of columns for the field
+        <div class="help-panel">
+            <h2>How to fulfil your task? - HELP</h2>
+            <div class="help-display" id="help-display">
+                <h3>1. State your goals</h3>
+                <h3>2. Divide them into subtask (three is better)</h3>
+                <h3>3. Choose whichever plant you want to plant</h3>
+                <h3>4. Everytime you finish your subtask, cross them to be able to harvest your plant</h3>
+            </div>
+        </div>
+        <div class="ui-panel">
+            <h2>Create Your Own Garden</h2>
+            <div class="input-container">
+                <input type="text" id="main-task-input" placeholder="Enter your main task">
+                <button onclick="setMainTask()">Enter</button>
+            </div>
+            <div class="input-container">
+                <input type="text" id="subtask-input" placeholder="Enter your subtask">
+                <button onclick="addSubtask()">Enter</button>
+            </div>
+            <div class="plant-selection">
+                <h3>Choose Your Plant</h3>
+                <div class="plant-buttons">
+                    <button onclick="selectPlant('Corn')">
+                        <span>🌽</span> Corn
+                    </button>
+                    <button onclick="selectPlant('Strawberry')">
+                        <span>🍓</span> Strawberry
+                    </button>
+                    <button onclick="selectPlant('Rose')">
+                        <span>🌹</span> Rose
+                    </button>
+                </div>
+            </div>
+        </div>
 
-        const borderPadding = 1; // Space between border and field
-        const borderTileSize = tileSize / 2; // Size of the border (smaller than field)
-
-        // Canvas size adjusted for border and field
-        canvas.width = (cols + 2 * borderPadding) * tileSize; 
-        canvas.height = (rows + 2 * borderPadding) * tileSize;
-
-        const grassImg = new Image();
-        const borderImg = new Image();
-
-        grassImg.src = "grass_texture.png"; // Replace with actual path
-        borderImg.src = "border_texture.png"; // Replace with actual path
-
-        grassImg.onload = () => {
-            borderImg.onload = () => {
-                drawField();
-            };
-        };
-
-        function drawField() {
-            // Draw border first (on the outer layer)
-            for (let y = 0; y < rows + 2 * borderPadding; y++) {
-                for (let x = 0; x < cols + 2 * borderPadding; x++) {
-                    if (y === 0 || y === rows + 2 * borderPadding - 1 || x === 0 || x === cols + 2 * borderPadding - 1) {
-                        // Draw border image
-                        ctx.drawImage(borderImg, x * tileSize, y * tileSize, borderTileSize, borderTileSize);
-                    }
-                }
-            }
-
-            // Draw the field (inside the border)
-            for (let y = borderPadding; y < rows + borderPadding; y++) {
-                for (let x = borderPadding; x < cols + borderPadding; x++) {
-                    // Draw grass image
-                    ctx.drawImage(grassImg, x * tileSize, y * tileSize, tileSize, tileSize);
-                }
-            }
-        }
-    </script>
+        <!-- Task Display UI Panel -->
+        <div class="task-panel">
+            <h2>Your Garden Plan</h2>
+            <div class="task-display" id="task-display">
+                <h3>Main Task</h3>
+                <p id="main-task">None</p>
+                <h3>Subtasks</h3>
+                <ul class="subtask-list" id="subtask-list">
+                    <!-- Subtasks will be added here dynamically -->
+                </ul>
+                <h3>Selected Plant</h3>
+                <p id="selected-plant">None</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small Farm</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js"></script>
-    <style>
-        body {
-            text-align: center;
-        }    
-        /* canvas {
-            border: 2px solid black;
-        } */    
-    </style>    
-</head>    
-<body>
-    <h1>My Small Farm</h1>
-    <script>
-        let fieldImg, barnImg, treeImg, cowImg;
-
-        function preload() {
-            fieldImg = loadImage('grass.png'); // Example field
-            barnImg = loadImage('background.png'); // Example barn
-            treeImg = loadImage('fields.jpg'); // Example tree
-            cowImg = loadImage('vector.jpg'); // Example cow
-        }    
-
-        function setup() {
-            let canvas = createCanvas(1200, 1000);
-            canvas.parent(document.body);
-            background(200, 250, 150);
-        }    
-
-        function draw() {
-            background(200, 250, 150);
-            if (fieldImg) image(fieldImg, 50, 50, 50, 50);
-            // if (barnImg) image(barnImg, 400, 150, 150, 120);
-            // if (treeImg) image(treeImg, 100, 100, 80, 120);
-            // if (cowImg) image(cowImg, 250, 250, 80, 60);
-        }    
-    </script>    
-</body>    
-</html> -->

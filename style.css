@@ -1,0 +1,213 @@
+body {
+    /* background: url('w4.jpg') no-repeat center center fixed; */
+    background-size: cover;
+    background-position: center;
+    background-color: #a8d5ba;
+    font-family: 'Patrick Hand', cursive;
+    color: #3a2e1f;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    height: 100vh;
+}
+
+.panels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Ensure the panels don't grow too wide */
+.ui-panel, .help-panel, .task-panel {
+    background: #f5deb3;
+    border: 5px solid #8b5a2b;
+    border-radius: 15px;
+    padding: 20px;
+    width: 350px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* .task-panel {
+    background: #f5deb3;
+    border: 5px solid #8b5a2b;
+    border-radius: 15px;
+    padding: 20px;
+    width: 350px;
+    box-sizing: border-box;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 30px; /* Distance from the bottom of the screen */
+    /* right: 550px;
+} */
+/* Optional: Adjust canvas size if needed */
+.field-canvas {
+    border: 5px solid #8b5a2b;
+    border-radius: 8px;
+    background: #6b9b5f;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.ui-panel h2, .task-panel h2, .help-panel h2 {
+    margin: 0 0 20px;
+    font-size: 1.8em;
+    color: #3a2e1f;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Georgia', serif;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ui-panel input[type="text"] {
+    width: 100%;
+    padding: 10px 80px 10px 15px;
+    border: 2px solid #8b5a2b;
+    border-radius: 5px;
+    background: #fff8e1;
+    color: #3a2e1f;
+    font-family: 'Arial', sans-serif;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.ui-panel input[type="text"]::placeholder {
+    color: #8b5a2b;
+    opacity: 0.7;
+}
+
+.ui-panel input[type="text"]:focus {
+    outline: none;
+    border-color: #6b9b5f;
+    box-shadow: 0 0 8px rgba(107, 155, 95, 0.5);
+}
+
+.input-container button {
+    position: absolute;
+    right: 5px;
+    background: linear-gradient(45deg, #6b9b5f, #8b5a2b);
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.input-container button:hover {
+    background: linear-gradient(45deg, #8b5a2b, #6b9b5f);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-display {
+    text-align: left;
+}
+
+.task-display h3 {
+    margin: 0 0 10px;
+    font-size: 1.3em;
+    color: #3a2e1f;
+    font-family: 'Georgia', serif;
+}
+
+.task-display p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #3a2e1f;
+}
+
+.subtask-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0 10px 0;
+}
+
+.subtask-list li {
+    font-size: 0.9em;
+    color: #3a2e1f;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.subtask-list input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #6b9b5f;
+    width: 16px;
+    height: 16px;
+}
+
+.subtask-list label {
+    cursor: pointer;
+}
+
+.plant-selection {
+    margin-top: 20px;
+}
+
+.plant-selection h3 {
+    margin: 0 0 15px;
+    font-size: 1.3em;
+    color: #3a2e1f;
+    font-family: 'Georgia', serif;
+}
+
+.plant-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.plant-buttons button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #d2b48c;
+    padding: 15px;
+    border: 2px solid #8b5a2b;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.plant-buttons button:hover {
+    background: #e6c9a8;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.plant-buttons span {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+/* Cursor styles for different emojis */
+.cursor-shovel {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="0" y="24" font-size="24">🪓</text></svg>') 16 16, auto;
+}
+
+.cursor-seeds {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="0" y="24" font-size="24">🌱</text></svg>') 16 16, auto;
+}
+
+.cursor-water {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="0" y="24" font-size="24">💧</text></svg>') 16 16, auto;
+}
+
+.cursor-default {
+    cursor: auto;
+}
