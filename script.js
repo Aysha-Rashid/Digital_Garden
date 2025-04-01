@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.querySelector(".field-canvas");
     const ctx = canvas.getContext("2d");
+    
 
     const tileSize = 50;
     const rows = 10;
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grassImg.src = "assets/grass_texture.png"; 
     borderImg.src = "assets/border_texture.png";
-    emptyFieldImg.src = "assets/empty_field.png"; 
+    emptyFieldImg.src = "assets/new_empty.png"; 
     sproutingImg.src = "assets/sprouting.png"; 
     maturePlantImg.src = "assets/mature_plant.png"; 
 
@@ -57,6 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     fallbackColor = "#90EE90"; 
                 } else if (state === 3) {
                     tileImg = maturePlantImg;
+                    // tileImg = (selectedPlant === 'Corn') ? new Image() : maturePlantImg;
+                    // if (selectedPlant === 'Corn') tileImg.src = "assets/mature_corn.png"; 
                     fallbackColor = "#FFD700"; 
                 }
 
@@ -176,10 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function selectPlant(plant) {
-        document.getElementById("selected-plant").textContent = plant;
-        console.log(`Selected plant: ${plant}`);
-    }
+        selectedPlant = plant;
+        let emoji;
+        if (plant == 'Corn')
+            emoji = "🌽";
+        else if (plant == 'Strawberry')
+            emoji = "🍓";
+        else
+            emoji = "🌹";
+        document.getElementById("selected-plant").textContent = emoji;
 
+    }
     window.setMainTask = setMainTask;
     window.addSubtask = addSubtask;
     window.selectPlant = selectPlant;

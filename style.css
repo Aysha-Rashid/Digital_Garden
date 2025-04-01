@@ -97,7 +97,8 @@ body {
 
 .input-container button {
     position: absolute;
-    right: 5px;
+    right: 4px;
+    bottom: 4px;
     background: linear-gradient(45deg, #6b9b5f, #8b5a2b);
     color: #fff;
     border: none;
@@ -139,7 +140,7 @@ body {
 
 .subtask-list li {
     font-size: 0.9em;
-    color: #3a2e1f;
+    color: #8b5a2b;
     margin: 5px 0;
     display: flex;
     align-items: center;
@@ -177,7 +178,7 @@ body {
     flex-direction: column;
     align-items: center;
     background: #d2b48c;
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #8b5a2b;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
