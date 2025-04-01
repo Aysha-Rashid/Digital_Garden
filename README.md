@@ -1,1 +1,1 @@
-<img width="556" alt="submission" src="(https://github.com/Aysha-Rashid/Digital_Garden/blob/main/submission.PNG)" />
+<img width="556" alt="submission" src="submission.PNG" />
